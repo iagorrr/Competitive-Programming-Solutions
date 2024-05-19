@@ -1,33 +1,5 @@
-"""
-	only works in the file structure of the repo :(
-"""
 from pathlib import Path
 import argparse
-import re
-import os
-
-
-
-def _set_arguments() -> argparse.Namespace:
-    DEFAULT_OUTPUT_PATH: Path = Path().parent.parent.parent / "README.md"
-    DEFAULT_SUBMISSIONS_FOLDER: Path = Path().parent.parent.parent / "submissions"
-    parser = argparse.ArgumentParser(
-        prog="Create read script",
-        description="Create a pretty README that links the submission folder"
-    )
-    parser.add_argument(
-        "-o", "--output", default=DEFAULT_OUTPUT_PATH,
-        help="specify where the README should be stored"
-    )
-
-    parser.add_argument(
-        "-s",
-        "--submissions",
-        default=DEFAULT_SUBMISSIONS_FOLDER,
-        help="specify where the folder to the submissions"
-    )
-    args = parser.parse_args()
-    return args
 
 def _get_intro() -> str:
     INTRO_PATH = Path(__file__).parent.absolute() / '100-intro.md'
@@ -39,28 +11,37 @@ def _get_bullet_link(entry_path: Path) -> str:
 	entry_path = entry_path.absolute().__str__()
 	i = entry_path.find("/submissions")
 	link = entry_path[i:]
+	link = link.replace(" ", "%20")
 	return link
 		
-def _build_bullet(name: str, link: str, ident: int):
-	TAB_SIZE: int = 8
+def _build_bullet(entry_path: Path, ident: int):
+	TAB_SIZE: int = 4
+	name = entry_path.name
+	link = _get_bullet_link(entry_path=entry_path)
 	bullet:str = ident*TAB_SIZE*" " + f" - [{name}]({link})\n"
 	return bullet
 
-def _get_submissions_md(sub_path: Path) -> str:
-	TO_EXPAND: set[str] = set(["ICPC", "Maratonas DF", "Meta-hacker-Cup"])
 
-	md = "## Submissions\n"
+TO_EXPAND: set[str] = set(["ICPC", "Maratonas DF"])
+def _get_folder_bullets(sub_path: Path, depth: int) -> str:
+	md = ""
 	
 	for folder in sub_path.iterdir():
 		if not folder.is_dir():
 			continue
 
-		link:str = _get_bullet_link(folder)
-		name:str = folder.name
-		md += _build_bullet(name, link, 0)
+		md += _build_bullet(folder, depth)
+		
+		if folder.name in TO_EXPAND:
+			md += _get_folder_bullets(folder, depth + 1)
 
+	return md
 
+def _get_submissions_md(sub_path: Path) -> str:
+	md = "## Submissions\n\n"
 
+	md += _get_folder_bullets(sub_path, 0)
+	
 	return md
 
 
@@ -76,6 +57,27 @@ def _save_output(md: str, out_path: Path) -> None:
 		f.write(md)
 	
 
+
+def _set_arguments() -> argparse.Namespace:
+    DEFAULT_OUTPUT_PATH: Path = Path().parent.parent.parent / "README.md"
+    DEFAULT_SUBMISSIONS_FOLDER: Path = Path().parent.parent.parent / "submissions"
+    parser = argparse.ArgumentParser(
+        prog="Create read script",
+        description="Create a pretty README that links the submission folder"
+    )
+    parser.add_argument(
+        "-o", "--output", default=DEFAULT_OUTPUT_PATH,
+        help="specify the path to where the README should be stored"
+    )
+
+    parser.add_argument(
+        "-s",
+        "--submissions",
+        default=DEFAULT_SUBMISSIONS_FOLDER,
+        help="specify the path to the submissions folder"
+    )
+    args = parser.parse_args()
+    return args
 
 if __name__ == "__main__":
 	args: argparse.Namespace = _set_arguments()
