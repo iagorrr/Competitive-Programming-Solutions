@@ -34,6 +34,7 @@ This repository is mostly useful for:
      - [2013-2014 ACM-ICPC Brazil Subregional Programming Contest](/submissions/ICPC/2013-2014%20ACM-ICPC%20Brazil%20Subregional%20Programming%20Contest)
      - [2022-2023 ICPC Brazil Subregional Programming Contest](/submissions/ICPC/2022-2023%20ICPC%20Brazil%20Subregional%20Programming%20Contest)
      - [2021-2022 ACM-ICPC Brazil Subregional Programming Contest](/submissions/ICPC/2021-2022%20ACM-ICPC%20Brazil%20Subregional%20Programming%20Contest)
+     - [Maratona de Programação da SBC 2011](/submissions/ICPC/Maratona%20de%20Programação%20da%20SBC%202011)
      - [Maratona de Programação da SBC - 2017](/submissions/ICPC/Maratona%20de%20Programação%20da%20SBC%20-%202017)
      - [Maratona de Programação SBC 2015 (sub-regional)](/submissions/ICPC/Maratona%20de%20Programação%20SBC%202015%20(sub-regional))
      - [2023-2024 ICPC Brazil Subregional Programming Contest](/submissions/ICPC/2023-2024%20ICPC%20Brazil%20Subregional%20Programming%20Contest)
