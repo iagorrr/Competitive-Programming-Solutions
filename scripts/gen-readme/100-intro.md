@@ -1,7 +1,7 @@
 
 # Competitive Programming Solutions
 
-Welcome! This repository houses my solutions to competitive programming problems sourced from various platforms and modalities.
+This repository houses my solutions to competitive programming problems sourced from various platforms and modalities.
 
 This repository is mostly useful for:
 
