@@ -25,6 +25,7 @@ This repository is mostly useful for:
  - [CSES](/submissions/CSES)
  - [Neps](/submissions/Neps)
  - [OBI](/submissions/OBI)
+ - [Toph](/submissions/Toph)
  - [Usaco](/submissions/Usaco)
  - [CD-MOJ](/submissions/CD-MOJ)
  - [ICPC](/submissions/ICPC)
