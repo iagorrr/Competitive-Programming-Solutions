@@ -3,38 +3,36 @@ using namespace std;
 
 using ll = long long;
 
-const int MAXLEN = 20;
-constexpr int MAXSUM = MAXLEN*9;
+const int MAXLEN = 19;
 
-ll memo[MAXLEN][MAXSUM+1];
-ll _solve(int p, bool lower, int sum, const string &digits) {
-	if (p == (int)digits.size()) {
-		return (sum == 10);
-	}
+ll memo[MAXLEN][10 + 1];
+ll dp(int p, int sum, bool low, const vector<int> &digits) {
+	if (sum > 10) return 0;
+	if (p < 0) return sum == 10;
 
-	ll &ans = memo[p][sum];
-	if (lower and ans != -1) return ans;
+	auto &res = memo[p][sum];
+	if (low and res != -1) return res;
 
-
+	int mx = low ? 9 : digits[p];
 	ll ret = 0;
-
-	int mx = lower ? 9 : digits[p] - '0';
 	for (int d = 0; d <= mx; d++) {
-		ret += _solve(p + 1, lower || (d < digits[p]-'0'), sum+d, digits);
+		ret += dp(p-1, sum + d, low | (d<digits[p]), digits);
 	}
-
-	return lower ? ans = ret : ret;
+	return low ? res = ret : ret;
 }
 
 ll solve(ll n) {
-	string digits = to_string(n);
-	memset(memo, -1, sizeof memo);
-	return _solve(0, 0, 0, digits);
+	vector<int> digits;
+	for ( ; n; n /= 10) {
+		digits.emplace_back(n%10);
+	}
+	return dp(digits.size() - 1u, 0, false, digits);
 }
 
 int32_t main() {
 	ios_base::sync_with_stdio(0);
 	cin.tie(0);
+	memset(memo, -1, sizeof memo);
 
 	ll N;
 	cin >> N;
