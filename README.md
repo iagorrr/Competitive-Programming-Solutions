@@ -35,6 +35,7 @@ This repository is mostly useful for:
  - [ICPC](/submissions/ICPC)
      - [2014-2015 ACM-ICPC Brazil Subregional Programming Contest](/submissions/ICPC/2014-2015%20ACM-ICPC%20Brazil%20Subregional%20Programming%20Contest)
      - [2012-2013 ACM-ICPC Brazil Subregional Programming Contest](/submissions/ICPC/2012-2013%20ACM-ICPC%20Brazil%20Subregional%20Programming%20Contest)
+     - [2023-2024 ICPC Northwestern European Regional Programming Contest (NWERC 2023)](/submissions/ICPC/2023-2024%20ICPC%20Northwestern%20European%20Regional%20Programming%20Contest%20(NWERC%202023))
      - [2016 Latin America Regional Programming Contest](/submissions/ICPC/2016%20Latin%20America%20Regional%20Programming%20Contest)
      - [2019-2020 ACM-ICPC Latin American Regional Programming Contest](/submissions/ICPC/2019-2020%20ACM-ICPC%20Latin%20American%20Regional%20Programming%20Contest)
      - [2021-2022 ACM-ICPC Latin American Regional Programming Contest](/submissions/ICPC/2021-2022%20ACM-ICPC%20Latin%20American%20Regional%20Programming%20Contest)
