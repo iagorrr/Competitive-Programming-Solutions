@@ -160,13 +160,28 @@ struct Point {
 template <typename T>
 struct Line {
   T a, b, c;
+  Point<T> p1,p2;
   Line(T a = 0, T b = 0, T c = 0)
-      : a(a), b(b), c(c) {}
+      : a(a), b(b), c(c) {
+
+    if (a != 0) {
+        double x = 0;
+        double y = (-c) / b;
+      p1=Point<T>(x,y);
+    }
+
+    if (b != 0) {
+        double y = 0;
+        double x = (-c) / a;
+      p2=Point<T>(x,y);
+    }
+  }
   Line(const Point<T>& p, const Point<T>& q) {
     assert(p != q);
     a = p.y - q.y;
     b = q.x - p.x;
     c = p.cross(q);
+    p1=p,p2=q;
   }
   bool operator==(const Line<T>& other) const {
     return tie(a, b, c) ==
@@ -187,7 +202,9 @@ struct Line {
   bool contains(const Point<T>& p) {
     return equals(a * p.x + b * p.y + c, (T)0);
   }
-
+  T direction(const Point<T>&p3){
+    return p1.cross(p2,p3);
+  }
   friend ostream& operator<<(ostream& os,
                              Line l) {
     return os << fixed << setprecision(6) << "("
@@ -202,19 +219,41 @@ ld euclidianDistance(const Point<T>& a,
   return hypot(a.x - b.x, a.y - b.y);
 }
 
+template<class Point> bool onSegment(Point s, Point e, Point p) {
+	return p.cross(s, e) == 0 && (s - p).dot(e - p) <= 0;
+}
+
+template<class Point> vector<Point> segInter(Point a, Point b, Point c, Point d) {
+	auto oa = c.cross(d, a), ob = c.cross(d, b),
+	     oc = a.cross(b, c), od = a.cross(b, d);
+	// Checks if intersection is single non-endpoint point.
+	if (sgn(oa) * sgn(ob) < 0 && sgn(oc) * sgn(od) < 0)
+		return {(a * ob - b * oa) / (ob - oa)};
+	set<Point> s;
+	if (onSegment(c, d, a)) s.insert(a);
+	if (onSegment(c, d, b)) s.insert(b);
+	if (onSegment(a, b, c)) s.insert(c);
+	if (onSegment(a, b, d)) s.insert(d);
+	return {all(s)};
+}
 /*8<==========================================>8*/
+
 void run() {
-  ll x1,y1,x2,y2,x3,y3;
+  ld x1,y1,x2,y2,x3,y3;
   cin>>x1>>y1>>x2>>y2>>x3>>y3;
   Point p1(x1,y1);
   Point p2(x2,y2);
   Point p3(x3,y3);
-  auto a=p1.cross(p2,p3);
-  if(equals(a,0ll))
+  Line seg(p1,p2);
+  if(seg.direction(p3)==0){
     cout<<"TOUCH"<<endl;
-  else if(a>0)
+  }
+  else if(seg.direction(p3)<0){
+    cout<<"RIGHT"<<endl;
+  }
+  else{
     cout<<"LEFT"<<endl;
-  else cout<<"RIGHT"<<endl;
+  }
 }
 
 /*8<
