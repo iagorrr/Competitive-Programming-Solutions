@@ -91,6 +91,7 @@ int32_t main() {
         https://codeforces.com/problemset/problem/127/A
         https://cses.fi/problemset/task/2189
         https://cses.fi/problemset/task/2190
+        https://www.spoj.com/problems/ANTTT/
 >8*/
 const double EPS{1e-4};
 
